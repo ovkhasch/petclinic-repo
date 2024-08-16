@@ -76,14 +76,15 @@ public class PetTypeFormatterTests {
      * @return {@link Collection} of {@link PetType}
      */
     private List<PetType> makePetTypes() {
-        List<PetType> petTypes = new ArrayList<>();
-        PetType dog = new PetType();
-        dog.setName("Dog");
-        petTypes.add(dog);
+        List<PetType> petTypes = new ArrayList<PetType>() {{
+            PetType dog = new PetType();
+            dog.setName("Dog");
+            add(dog);
 
-        PetType bird = new PetType();
-        bird.setName("Bird");
-        petTypes.add(bird);
+            PetType bird = new PetType();
+            bird.setName("Bird");
+            add(bird);
+        }};
         return petTypes;
     }
 
