@@ -40,6 +40,14 @@
   
     <table class="table table-striped">
   
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Birth Date</th>
+          <th scope="col">Type</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
       <tr th:each="pet : ${owner.pets}">
         <td valign="top">
           <dl class="dl-horizontal">
