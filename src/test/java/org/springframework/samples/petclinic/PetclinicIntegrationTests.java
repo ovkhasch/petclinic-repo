@@ -24,6 +24,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.samples.petclinic.vet.VetRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
+class VetRepositoryException extends RuntimeException {
+    public VetRepositoryException(String message) {
+        super(message);
+    }
+}
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PetclinicIntegrationTests {
@@ -32,7 +38,7 @@ public class PetclinicIntegrationTests {
     private VetRepository vets;
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testFindAll() throws VetRepositoryException {
         vets.findAll();
         vets.findAll(); // served from cache
     }
