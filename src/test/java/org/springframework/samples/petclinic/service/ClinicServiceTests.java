@@ -97,8 +97,8 @@ public class ClinicServiceTests {
     @Test
     @Transactional
     public void shouldInsertOwner() {
-        Collection<Owner> owners = this.owners.findByLastName("Schultz");
-        int found = owners.size();
+        Collection<Owner> foundOwners = this.owners.findByLastName("Schultz");
+        int found = foundOwners.size();
 
         Owner owner = new Owner();
         owner.setFirstName("Sam");
@@ -109,8 +109,8 @@ public class ClinicServiceTests {
         this.owners.save(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
-        owners = this.owners.findByLastName("Schultz");
-        assertThat(owners.size()).isEqualTo(found + 1);
+        foundOwners = this.owners.findByLastName("Schultz");
+        assertThat(foundOwners.size()).isEqualTo(found + 1);
     }
 
     @Test
