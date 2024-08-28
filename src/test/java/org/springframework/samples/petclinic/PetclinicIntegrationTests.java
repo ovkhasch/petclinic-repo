@@ -32,7 +32,7 @@ public class PetclinicIntegrationTests {
     private VetRepository vets;
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testFindAll() throws IllegalStateException {
         vets.findAll();
         vets.findAll(); // served from cache
     }
