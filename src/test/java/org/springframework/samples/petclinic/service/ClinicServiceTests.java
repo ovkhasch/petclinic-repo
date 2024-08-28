@@ -64,6 +64,8 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class ClinicServiceTests {
 
+    private static final String LAST_NAME_SCHULTZ = "Schultz";
+
     @Autowired
     protected OwnerRepository owners;
 
@@ -97,7 +99,7 @@ public class ClinicServiceTests {
     @Test
     @Transactional
     public void shouldInsertOwner() {
-        Collection<Owner> foundOwners = this.owners.findByLastName("Schultz");
+        Collection<Owner> foundOwners = this.owners.findByLastName(LAST_NAME_SCHULTZ);
         int found = foundOwners.size();
 
         Owner owner = new Owner();
@@ -109,7 +111,7 @@ public class ClinicServiceTests {
         this.owners.save(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
-        foundOwners = this.owners.findByLastName("Schultz");
+        foundOwners = this.owners.findByLastName(LAST_NAME_SCHULTZ);
         assertThat(foundOwners.size()).isEqualTo(found + 1);
     }
 
