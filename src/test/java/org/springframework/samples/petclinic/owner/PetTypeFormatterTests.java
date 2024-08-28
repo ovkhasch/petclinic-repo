@@ -17,6 +17,7 @@
 package org.springframework.samples.petclinic.owner;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -76,10 +77,10 @@ public class PetTypeFormatterTests {
      * @return {@link Collection} of {@link PetType}
      */
     private List<PetType> makePetTypes() {
-        return Arrays.asList(
-            createPetType("Dog"),
-            createPetType("Bird")
-        );
+        List<PetType> petTypes = new ArrayList<>();
+        petTypes.add(createPetType("Dog"));
+        petTypes.add(createPetType("Bird"));
+        return petTypes;
     }
 
     private PetType createPetType(String name) {
