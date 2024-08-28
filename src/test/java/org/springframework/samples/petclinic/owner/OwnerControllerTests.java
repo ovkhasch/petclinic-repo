@@ -63,6 +63,7 @@ public class OwnerControllerTests {
     private static final String LIBERTY_STREET_ADDRESS = "110 W. Liberty St.";
     private static final String MADISON = "Madison";
     private static final String GEORGE_PHONE_NUMBER = "6085551023";
+    private static final String CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     private Owner george;
 
     @Before
@@ -82,7 +83,7 @@ public class OwnerControllerTests {
         mockMvc.perform(get(OWNERS_NEW_URL))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists(OWNER_ATTRIBUTE))
-            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+            .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
 
     @Test
@@ -108,7 +109,7 @@ public class OwnerControllerTests {
             .andExpect(model().attributeHasErrors(OWNER_ATTRIBUTE))
             .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, "address"))
             .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, "telephone"))
-            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+            .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
 
     @Test
@@ -158,7 +159,7 @@ public class OwnerControllerTests {
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("address", is(LIBERTY_STREET_ADDRESS))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is(MADISON))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is(GEORGE_PHONE_NUMBER))))
-            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+            .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
 
     @Test
@@ -185,7 +186,7 @@ public class OwnerControllerTests {
             .andExpect(model().attributeHasErrors("owner"))
             .andExpect(model().attributeHasFieldErrors("owner", "address"))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
-            .andExpect(view().name("owners/createOrUpdateOwnerForm"));
+            .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
 
     @Test
