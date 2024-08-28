@@ -56,6 +56,7 @@ public class PetControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
     private static final String PETS_NEW_URL = "/owners/{ownerId}/pets/new";
+    private static final String PETS_EDIT_URL = "/owners/{ownerId}/pets/{petId}/edit";
     private static final String PET_TYPE_HAMSTER = "hamster";
     private static final String PET_NAME_BETTY = "Betty";
     private static final String PET_FORM_VIEW = "pets/createOrUpdatePetForm";
@@ -119,7 +120,7 @@ public class PetControllerTests {
 
     @Test
     public void testInitUpdateForm() throws Exception {
-        mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
+        mockMvc.perform(get(PETS_EDIT_URL, TEST_OWNER_ID, TEST_PET_ID))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("pet"))
             .andExpect(view().name(PET_FORM_VIEW));
@@ -127,7 +128,7 @@ public class PetControllerTests {
 
     @Test
     public void testProcessUpdateFormSuccess() throws Exception {
-        mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID)
+        mockMvc.perform(post(PETS_EDIT_URL, TEST_OWNER_ID, TEST_PET_ID)
             .param("name", PET_NAME_BETTY)
             .param("type", PET_TYPE_HAMSTER)
             .param("birthDate", DATE_2015_02_12)
