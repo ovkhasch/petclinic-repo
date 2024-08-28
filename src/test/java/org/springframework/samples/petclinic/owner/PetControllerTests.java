@@ -56,6 +56,7 @@ public class PetControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
     private static final String PETS_NEW_URL = "/owners/{ownerId}/pets/new";
+    private static final String PET_TYPE_HAMSTER = "hamster";
     private static final String BIRTH_DATE = "birthDate";
     private static final String DATE_2015_02_12 = "2015-02-12";
     private static final int TEST_PET_ID = 1;
@@ -74,7 +75,7 @@ public class PetControllerTests {
     public void setup() {
         PetType cat = new PetType();
         cat.setId(3);
-        cat.setName("hamster");
+        cat.setName(PET_TYPE_HAMSTER);
         given(this.pets.findPetTypes()).willReturn(Lists.newArrayList(cat));
         given(this.owners.findById(TEST_OWNER_ID)).willReturn(new Owner());
         given(this.pets.findById(TEST_PET_ID)).willReturn(new Pet());
@@ -93,7 +94,7 @@ public class PetControllerTests {
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post(PETS_NEW_URL, TEST_OWNER_ID)
             .param("name", "Betty")
-            .param("type", "hamster")
+            .param("type", PET_TYPE_HAMSTER)
             .param(BIRTH_DATE, DATE_2015_02_12)
         )
             .andExpect(status().is3xxRedirection())
@@ -126,7 +127,7 @@ public class PetControllerTests {
     public void testProcessUpdateFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID)
             .param("name", "Betty")
-            .param("type", "hamster")
+            .param("type", PET_TYPE_HAMSTER)
             .param("birthDate", DATE_2015_02_12)
         )
             .andExpect(status().is3xxRedirection())
