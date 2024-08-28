@@ -78,11 +78,11 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindOwnersByLastName() {
-        Collection<Owner> owners = this.owners.findByLastName("Davis");
-        assertThat(owners).hasSize(2);
+        Collection<Owner> foundOwners = this.owners.findByLastName("Davis");
+        assertThat(foundOwners).hasSize(2);
 
-        owners = this.owners.findByLastName("Daviss");
-        assertThat(owners).isEmpty();
+        foundOwners = this.owners.findByLastName("Daviss");
+        assertThat(foundOwners).isEmpty();
     }
 
     @Test
