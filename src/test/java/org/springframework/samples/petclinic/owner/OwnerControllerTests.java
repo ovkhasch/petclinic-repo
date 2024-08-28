@@ -48,6 +48,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public class OwnerControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
+    private static final String OWNERS_NEW_URL = "/owners/new";
 
     @Autowired
     private MockMvc mockMvc;
@@ -76,7 +77,7 @@ public class OwnerControllerTests {
 
     @Test
     public void testInitCreationForm() throws Exception {
-        mockMvc.perform(get("/owners/new"))
+        mockMvc.perform(get(OWNERS_NEW_URL))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("owner"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
@@ -84,7 +85,7 @@ public class OwnerControllerTests {
 
     @Test
     public void testProcessCreationFormSuccess() throws Exception {
-        mockMvc.perform(post("/owners/new")
+        mockMvc.perform(post(OWNERS_NEW_URL)
             .param("firstName", "Joe")
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
@@ -96,7 +97,7 @@ public class OwnerControllerTests {
 
     @Test
     public void testProcessCreationFormHasErrors() throws Exception {
-        mockMvc.perform(post("/owners/new")
+        mockMvc.perform(post(OWNERS_NEW_URL)
             .param("firstName", "Joe")
             .param("lastName", "Bloggs")
             .param("city", "London")
