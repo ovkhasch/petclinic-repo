@@ -70,6 +70,7 @@ public class OwnerControllerTests {
     private static final String ADDRESS = "address";
     private static final String LONDON = "London";
     private static final String TELEPHONE = "telephone";
+    private static final String OWNERS_URL = "/owners";
     private Owner george;
 
     @Before
@@ -129,7 +130,7 @@ public class OwnerControllerTests {
     @Test
     public void testProcessFindFormSuccess() throws Exception {
         given(this.owners.findByLastName("")).willReturn(Lists.newArrayList(george, new Owner()));
-        mockMvc.perform(get("/owners"))
+        mockMvc.perform(get(OWNERS_URL))
             .andExpect(status().isOk())
             .andExpect(view().name("owners/ownersList"));
     }
@@ -137,7 +138,7 @@ public class OwnerControllerTests {
     @Test
     public void testProcessFindFormByLastName() throws Exception {
         given(this.owners.findByLastName(george.getLastName())).willReturn(Lists.newArrayList(george));
-        mockMvc.perform(get("/owners")
+        mockMvc.perform(get(OWNERS_URL)
             .param(LAST_NAME, FRANKLIN)
         )
             .andExpect(status().is3xxRedirection())
@@ -146,7 +147,7 @@ public class OwnerControllerTests {
 
     @Test
     public void testProcessFindFormNoOwnersFound() throws Exception {
-        mockMvc.perform(get("/owners")
+        mockMvc.perform(get(OWNERS_URL)
             .param(LAST_NAME, "Unknown Surname")
         )
             .andExpect(status().isOk())
