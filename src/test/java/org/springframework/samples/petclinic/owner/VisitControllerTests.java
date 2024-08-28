@@ -47,7 +47,7 @@ public class VisitControllerTests {
 
     private static final int TEST_PET_ID = 1;
 
-    @Autowired
+    private static final String VISIT_URL = "/owners/*/pets/{petId}/visits/new";
     private MockMvc mockMvc;
 
     @MockBean
@@ -63,14 +63,14 @@ public class VisitControllerTests {
 
     @Test
     public void testInitNewVisitForm() throws Exception {
-        mockMvc.perform(get("/owners/*/pets/{petId}/visits/new", TEST_PET_ID))
+        mockMvc.perform(get(VISIT_URL, TEST_PET_ID))
             .andExpect(status().isOk())
             .andExpect(view().name("pets/createOrUpdateVisitForm"));
     }
 
     @Test
     public void testProcessNewVisitFormSuccess() throws Exception {
-        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_PET_ID)
+        mockMvc.perform(post(VISIT_URL, TEST_PET_ID)
             .param("name", "George")
             .param("description", "Visit Description")
         )
@@ -80,7 +80,7 @@ public class VisitControllerTests {
 
     @Test
     public void testProcessNewVisitFormHasErrors() throws Exception {
-        mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_PET_ID)
+        mockMvc.perform(post(VISIT_URL, TEST_PET_ID)
             .param("name", "George")
         )
             .andExpect(model().attributeHasErrors("visit"))
