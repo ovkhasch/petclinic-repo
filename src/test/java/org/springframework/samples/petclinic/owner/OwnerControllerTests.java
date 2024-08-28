@@ -57,6 +57,7 @@ public class OwnerControllerTests {
 
     private static final String GEORGE = "George";
     private static final String FRANKLIN = "Franklin";
+    private static final String LIBERTY_STREET_ADDRESS = "110 W. Liberty St.";
     private Owner george;
 
     @Before
@@ -65,7 +66,7 @@ public class OwnerControllerTests {
         george.setId(TEST_OWNER_ID);
         george.setFirstName(GEORGE);
         george.setLastName(FRANKLIN);
-        george.setAddress("110 W. Liberty St.");
+        george.setAddress(LIBERTY_STREET_ADDRESS);
         george.setCity("Madison");
         george.setTelephone("6085551023");
         given(this.owners.findById(TEST_OWNER_ID)).willReturn(george);
@@ -149,7 +150,7 @@ public class OwnerControllerTests {
             .andExpect(model().attributeExists("owner"))
             .andExpect(model().attribute("owner", hasProperty("lastName", is(FRANKLIN))))
             .andExpect(model().attribute("owner", hasProperty("firstName", is(GEORGE))))
-            .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
+            .andExpect(model().attribute("owner", hasProperty("address", is(LIBERTY_STREET_ADDRESS))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
