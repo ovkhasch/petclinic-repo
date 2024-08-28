@@ -57,6 +57,7 @@ public class PetControllerTests {
     private static final int TEST_OWNER_ID = 1;
     private static final String PETS_NEW_URL = "/owners/{ownerId}/pets/new";
     private static final String PET_TYPE_HAMSTER = "hamster";
+    private static final String PET_FORM_VIEW = "pets/createOrUpdatePetForm";
     private static final String BIRTH_DATE = "birthDate";
     private static final String DATE_2015_02_12 = "2015-02-12";
     private static final int TEST_PET_ID = 1;
@@ -86,7 +87,7 @@ public class PetControllerTests {
     public void testInitCreationForm() throws Exception {
         mockMvc.perform(get(PETS_NEW_URL, TEST_OWNER_ID))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdatePetForm"))
+            .andExpect(view().name(PET_FORM_VIEW))
             .andExpect(model().attributeExists("pet"));
     }
 
@@ -112,7 +113,7 @@ public class PetControllerTests {
             .andExpect(model().attributeHasFieldErrors("pet", "type"))
             .andExpect(model().attributeHasFieldErrorCode("pet", "type", "required"))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdatePetForm"));
+            .andExpect(view().name(PET_FORM_VIEW));
     }
 
     @Test
@@ -120,7 +121,7 @@ public class PetControllerTests {
         mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("pet"))
-            .andExpect(view().name("pets/createOrUpdatePetForm"));
+            .andExpect(view().name(PET_FORM_VIEW));
     }
 
     @Test
@@ -143,7 +144,7 @@ public class PetControllerTests {
             .andExpect(model().attributeHasNoErrors("owner"))
             .andExpect(model().attributeHasErrors("pet"))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdatePetForm"));
+            .andExpect(view().name(PET_FORM_VIEW));
     }
 
 }
