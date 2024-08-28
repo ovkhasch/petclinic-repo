@@ -64,6 +64,8 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class ClinicServiceTests {
 
+    private static final String LAST_NAME_SCHULTZ = "Schultz";
+
     @Autowired
     protected OwnerRepository owners;
 
@@ -78,11 +80,11 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindOwnersByLastName() {
-        Collection<Owner> owners = this.owners.findByLastName("Davis");
-        assertThat(owners).hasSize(2);
+        Collection<Owner> foundOwners = this.owners.findByLastName("Davis");
+        assertThat(foundOwners).hasSize(2);
 
-        owners = this.owners.findByLastName("Daviss");
-        assertThat(owners).isEmpty();
+        foundOwners = this.owners.findByLastName("Daviss");
+        assertThat(foundOwners).isEmpty();
     }
 
     @Test
@@ -97,8 +99,8 @@ public class ClinicServiceTests {
     @Test
     @Transactional
     public void shouldInsertOwner() {
-        Collection<Owner> owners = this.owners.findByLastName("Schultz");
-        int found = owners.size();
+        Collection<Owner> foundOwners = this.owners.findByLastName(LAST_NAME_SCHULTZ);
+        int found = foundOwners.size();
 
         Owner owner = new Owner();
         owner.setFirstName("Sam");
@@ -109,8 +111,8 @@ public class ClinicServiceTests {
         this.owners.save(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
-        owners = this.owners.findByLastName("Schultz");
-        assertThat(owners.size()).isEqualTo(found + 1);
+        foundOwners = this.owners.findByLastName(LAST_NAME_SCHULTZ);
+        assertThat(foundOwners.size()).isEqualTo(found + 1);
     }
 
     @Test
@@ -185,7 +187,7 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindVets() {
-        Collection<Vet> vets = this.vets.findAll();
+        Collection<Vet> foundVets = this.vets.findAll();
 
         Vet vet = EntityUtils.getById(vets, Vet.class, 3);
         assertThat(vet.getLastName()).isEqualTo("Douglas");
@@ -212,9 +214,9 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindVisitsByPetId() throws Exception {
-        Collection<Visit> visits = this.visits.findByPetId(7);
-        assertThat(visits).hasSize(2);
-        Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
+        Collection<Visit> petVisits = this.visits.findByPetId(7);
+        assertThat(petVisits).hasSize(2);
+        Visit[] visitArr = petVisits.toArray(new Visit[petVisits.size()]);
         assertThat(visitArr[0].getDate()).isNotNull();
         assertThat(visitArr[0].getPetId()).isEqualTo(7);
     }
