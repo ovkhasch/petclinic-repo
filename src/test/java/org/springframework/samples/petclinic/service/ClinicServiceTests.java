@@ -187,7 +187,7 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindVets() {
-        Collection<Vet> vets = this.vets.findAll();
+        Collection<Vet> foundVets = this.vets.findAll();
 
         Vet vet = EntityUtils.getById(vets, Vet.class, 3);
         assertThat(vet.getLastName()).isEqualTo("Douglas");
