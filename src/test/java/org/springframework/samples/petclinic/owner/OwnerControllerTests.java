@@ -71,6 +71,7 @@ public class OwnerControllerTests {
     private static final String LONDON = "London";
     private static final String TELEPHONE = "telephone";
     private static final String OWNERS_URL = "/owners";
+    private static final String OWNER_EDIT_URL = "/owners/{ownerId}/edit";
     private Owner george;
 
     @Before
@@ -158,7 +159,7 @@ public class OwnerControllerTests {
 
     @Test
     public void testInitUpdateOwnerForm() throws Exception {
-        mockMvc.perform(get("/owners/{ownerId}/edit", TEST_OWNER_ID))
+        mockMvc.perform(get(OWNER_EDIT_URL, TEST_OWNER_ID))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists(OWNER_ATTRIBUTE))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("lastName", is(FRANKLIN))))
@@ -171,7 +172,7 @@ public class OwnerControllerTests {
 
     @Test
     public void testProcessUpdateOwnerFormSuccess() throws Exception {
-        mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
+        mockMvc.perform(post(OWNER_EDIT_URL, TEST_OWNER_ID)
             .param(FIRST_NAME, "Joe")
             .param("lastName", LAST_NAME_BLOGGS)
             .param("address", "123 Caramel Street")
