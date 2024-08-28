@@ -56,6 +56,7 @@ public class OwnerControllerTests {
     private OwnerRepository owners;
 
     private static final String GEORGE = "George";
+    private static final String FRANKLIN = "Franklin";
     private Owner george;
 
     @Before
@@ -63,7 +64,7 @@ public class OwnerControllerTests {
         george = new Owner();
         george.setId(TEST_OWNER_ID);
         george.setFirstName(GEORGE);
-        george.setLastName("Franklin");
+        george.setLastName(FRANKLIN);
         george.setAddress("110 W. Liberty St.");
         george.setCity("Madison");
         george.setTelephone("6085551023");
@@ -124,7 +125,7 @@ public class OwnerControllerTests {
     public void testProcessFindFormByLastName() throws Exception {
         given(this.owners.findByLastName(george.getLastName())).willReturn(Lists.newArrayList(george));
         mockMvc.perform(get("/owners")
-            .param("lastName", "Franklin")
+            .param("lastName", FRANKLIN)
         )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/owners/" + TEST_OWNER_ID));
@@ -146,7 +147,7 @@ public class OwnerControllerTests {
         mockMvc.perform(get("/owners/{ownerId}/edit", TEST_OWNER_ID))
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("owner"))
-            .andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
+            .andExpect(model().attribute("owner", hasProperty("lastName", is(FRANKLIN))))
             .andExpect(model().attribute("owner", hasProperty("firstName", is(GEORGE))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
