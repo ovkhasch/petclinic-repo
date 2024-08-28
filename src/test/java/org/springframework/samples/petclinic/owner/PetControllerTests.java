@@ -57,6 +57,7 @@ public class PetControllerTests {
     private static final int TEST_OWNER_ID = 1;
     private static final String PETS_NEW_URL = "/owners/{ownerId}/pets/new";
     private static final String PET_TYPE_HAMSTER = "hamster";
+    private static final String PET_NAME_BETTY = "Betty";
     private static final String PET_FORM_VIEW = "pets/createOrUpdatePetForm";
     private static final String BIRTH_DATE = "birthDate";
     private static final String DATE_2015_02_12 = "2015-02-12";
@@ -94,7 +95,7 @@ public class PetControllerTests {
     @Test
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post(PETS_NEW_URL, TEST_OWNER_ID)
-            .param("name", "Betty")
+            .param("name", PET_NAME_BETTY)
             .param("type", PET_TYPE_HAMSTER)
             .param(BIRTH_DATE, DATE_2015_02_12)
         )
@@ -105,7 +106,7 @@ public class PetControllerTests {
     @Test
     public void testProcessCreationFormHasErrors() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/pets/new", TEST_OWNER_ID)
-            .param("name", "Betty")
+            .param("name", PET_NAME_BETTY)
             .param(BIRTH_DATE, "2015-02-12")
         )
             .andExpect(model().attributeHasNoErrors("owner"))
@@ -127,7 +128,7 @@ public class PetControllerTests {
     @Test
     public void testProcessUpdateFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID)
-            .param("name", "Betty")
+            .param("name", PET_NAME_BETTY)
             .param("type", PET_TYPE_HAMSTER)
             .param("birthDate", DATE_2015_02_12)
         )
@@ -138,7 +139,7 @@ public class PetControllerTests {
     @Test
     public void testProcessUpdateFormHasErrors() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID)
-            .param("name", "Betty")
+            .param("name", PET_NAME_BETTY)
             .param(BIRTH_DATE, "2015/02/12")
         )
             .andExpect(model().attributeHasNoErrors("owner"))
