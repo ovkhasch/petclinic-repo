@@ -69,6 +69,7 @@ public class OwnerControllerTests {
     private static final String LAST_NAME_BLOGGS = "Bloggs";
     private static final String ADDRESS = "address";
     private static final String LONDON = "London";
+    private static final String TELEPHONE = "telephone";
     private Owner george;
 
     @Before
@@ -98,7 +99,7 @@ public class OwnerControllerTests {
             .param(LAST_NAME, LAST_NAME_BLOGGS)
             .param(ADDRESS, "123 Caramel Street")
             .param("city", LONDON)
-            .param("telephone", "01316761638")
+            .param(TELEPHONE, "01316761638")
         )
             .andExpect(status().is3xxRedirection());
     }
@@ -113,7 +114,7 @@ public class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors(OWNER_ATTRIBUTE))
             .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, ADDRESS))
-            .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, "telephone"))
+            .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, TELEPHONE))
             .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
 
@@ -163,7 +164,7 @@ public class OwnerControllerTests {
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(FIRST_NAME, is(GEORGE))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(ADDRESS, is(LIBERTY_STREET_ADDRESS))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is(MADISON))))
-            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is(GEORGE_PHONE_NUMBER))))
+            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(TELEPHONE, is(GEORGE_PHONE_NUMBER))))
             .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
 
@@ -174,7 +175,7 @@ public class OwnerControllerTests {
             .param("lastName", LAST_NAME_BLOGGS)
             .param("address", "123 Caramel Street")
             .param("city", LONDON)
-            .param("telephone", "01616291589")
+            .param(TELEPHONE, "01616291589")
         )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/owners/{ownerId}"));
@@ -202,7 +203,7 @@ public class OwnerControllerTests {
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(FIRST_NAME, is("George"))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(ADDRESS, is("110 W. Liberty St."))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is("Madison"))))
-            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is("6085551023"))))
+            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(TELEPHONE, is("6085551023"))))
             .andExpect(view().name("owners/ownerDetails"));
     }
 
