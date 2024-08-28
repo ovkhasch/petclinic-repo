@@ -58,6 +58,7 @@ public class OwnerControllerTests {
     @MockBean
     private OwnerRepository owners;
 
+    private static final String FIRST_NAME = "firstName";
     private static final String GEORGE = "George";
     private static final String FRANKLIN = "Franklin";
     private static final String LIBERTY_STREET_ADDRESS = "110 W. Liberty St.";
@@ -89,7 +90,7 @@ public class OwnerControllerTests {
     @Test
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post(OWNERS_NEW_URL)
-            .param("firstName", "Joe")
+            .param(FIRST_NAME, "Joe")
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
             .param("city", "London")
@@ -101,7 +102,7 @@ public class OwnerControllerTests {
     @Test
     public void testProcessCreationFormHasErrors() throws Exception {
         mockMvc.perform(post(OWNERS_NEW_URL)
-            .param("firstName", "Joe")
+            .param(FIRST_NAME, "Joe")
             .param("lastName", "Bloggs")
             .param("city", "London")
         )
@@ -155,7 +156,7 @@ public class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeExists(OWNER_ATTRIBUTE))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("lastName", is(FRANKLIN))))
-            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("firstName", is(GEORGE))))
+            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(FIRST_NAME, is(GEORGE))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("address", is(LIBERTY_STREET_ADDRESS))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is(MADISON))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is(GEORGE_PHONE_NUMBER))))
@@ -165,7 +166,7 @@ public class OwnerControllerTests {
     @Test
     public void testProcessUpdateOwnerFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
-            .param("firstName", "Joe")
+            .param(FIRST_NAME, "Joe")
             .param("lastName", "Bloggs")
             .param("address", "123 Caramel Street")
             .param("city", "London")
@@ -194,7 +195,7 @@ public class OwnerControllerTests {
         mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))
             .andExpect(status().isOk())
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("lastName", is("Franklin"))))
-            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("firstName", is("George"))))
+            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(FIRST_NAME, is("George"))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is("Madison"))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is("6085551023"))))
