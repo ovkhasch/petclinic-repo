@@ -214,9 +214,9 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindVisitsByPetId() throws Exception {
-        Collection<Visit> visits = this.visits.findByPetId(7);
-        assertThat(visits).hasSize(2);
-        Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
+        Collection<Visit> petVisits = this.visits.findByPetId(7);
+        assertThat(petVisits).hasSize(2);
+        Visit[] visitArr = petVisits.toArray(new Visit[petVisits.size()]);
         assertThat(visitArr[0].getDate()).isNotNull();
         assertThat(visitArr[0].getPetId()).isEqualTo(7);
     }
