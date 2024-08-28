@@ -59,6 +59,7 @@ public class OwnerControllerTests {
     private OwnerRepository owners;
 
     private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
     private static final String GEORGE = "George";
     private static final String FRANKLIN = "Franklin";
     private static final String LIBERTY_STREET_ADDRESS = "110 W. Liberty St.";
@@ -92,7 +93,7 @@ public class OwnerControllerTests {
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post(OWNERS_NEW_URL)
             .param(FIRST_NAME, "Joe")
-            .param("lastName", LAST_NAME_BLOGGS)
+            .param(LAST_NAME, LAST_NAME_BLOGGS)
             .param("address", "123 Caramel Street")
             .param("city", "London")
             .param("telephone", "01316761638")
@@ -104,7 +105,7 @@ public class OwnerControllerTests {
     public void testProcessCreationFormHasErrors() throws Exception {
         mockMvc.perform(post(OWNERS_NEW_URL)
             .param(FIRST_NAME, "Joe")
-            .param("lastName", LAST_NAME_BLOGGS)
+            .param(LAST_NAME, LAST_NAME_BLOGGS)
             .param("city", "London")
         )
             .andExpect(status().isOk())
@@ -134,7 +135,7 @@ public class OwnerControllerTests {
     public void testProcessFindFormByLastName() throws Exception {
         given(this.owners.findByLastName(george.getLastName())).willReturn(Lists.newArrayList(george));
         mockMvc.perform(get("/owners")
-            .param("lastName", FRANKLIN)
+            .param(LAST_NAME, FRANKLIN)
         )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/owners/" + TEST_OWNER_ID));
@@ -143,7 +144,7 @@ public class OwnerControllerTests {
     @Test
     public void testProcessFindFormNoOwnersFound() throws Exception {
         mockMvc.perform(get("/owners")
-            .param("lastName", "Unknown Surname")
+            .param(LAST_NAME, "Unknown Surname")
         )
             .andExpect(status().isOk())
             .andExpect(model().attributeHasFieldErrors("owner", "lastName"))
@@ -181,7 +182,7 @@ public class OwnerControllerTests {
     public void testProcessUpdateOwnerFormHasErrors() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
             .param("firstName", "Joe")
-            .param("lastName", "Bloggs")
+            .param(LAST_NAME, "Bloggs")
             .param("city", "London")
         )
             .andExpect(status().isOk())
