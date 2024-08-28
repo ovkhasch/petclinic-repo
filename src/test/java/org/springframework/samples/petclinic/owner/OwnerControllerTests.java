@@ -65,6 +65,7 @@ public class OwnerControllerTests {
     private static final String MADISON = "Madison";
     private static final String GEORGE_PHONE_NUMBER = "6085551023";
     private static final String CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
+    private static final String LAST_NAME_BLOGGS = "Bloggs";
     private Owner george;
 
     @Before
@@ -91,7 +92,7 @@ public class OwnerControllerTests {
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post(OWNERS_NEW_URL)
             .param(FIRST_NAME, "Joe")
-            .param("lastName", "Bloggs")
+            .param("lastName", LAST_NAME_BLOGGS)
             .param("address", "123 Caramel Street")
             .param("city", "London")
             .param("telephone", "01316761638")
@@ -103,7 +104,7 @@ public class OwnerControllerTests {
     public void testProcessCreationFormHasErrors() throws Exception {
         mockMvc.perform(post(OWNERS_NEW_URL)
             .param(FIRST_NAME, "Joe")
-            .param("lastName", "Bloggs")
+            .param("lastName", LAST_NAME_BLOGGS)
             .param("city", "London")
         )
             .andExpect(status().isOk())
@@ -167,7 +168,7 @@ public class OwnerControllerTests {
     public void testProcessUpdateOwnerFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/{ownerId}/edit", TEST_OWNER_ID)
             .param(FIRST_NAME, "Joe")
-            .param("lastName", "Bloggs")
+            .param("lastName", LAST_NAME_BLOGGS)
             .param("address", "123 Caramel Street")
             .param("city", "London")
             .param("telephone", "01616291589")
