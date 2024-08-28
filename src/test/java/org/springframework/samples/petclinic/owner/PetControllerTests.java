@@ -57,6 +57,7 @@ public class PetControllerTests {
     private static final int TEST_OWNER_ID = 1;
     private static final String PETS_NEW_URL = "/owners/{ownerId}/pets/new";
     private static final String BIRTH_DATE = "birthDate";
+    private static final String DATE_2015_02_12 = "2015-02-12";
     private static final int TEST_PET_ID = 1;
 
 
@@ -93,7 +94,7 @@ public class PetControllerTests {
         mockMvc.perform(post(PETS_NEW_URL, TEST_OWNER_ID)
             .param("name", "Betty")
             .param("type", "hamster")
-            .param(BIRTH_DATE, "2015-02-12")
+            .param(BIRTH_DATE, DATE_2015_02_12)
         )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/owners/{ownerId}"));
@@ -126,7 +127,7 @@ public class PetControllerTests {
         mockMvc.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID)
             .param("name", "Betty")
             .param("type", "hamster")
-            .param("birthDate", "2015-02-12")
+            .param("birthDate", DATE_2015_02_12)
         )
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/owners/{ownerId}"));
