@@ -67,6 +67,7 @@ public class OwnerControllerTests {
     private static final String GEORGE_PHONE_NUMBER = "6085551023";
     private static final String CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     private static final String LAST_NAME_BLOGGS = "Bloggs";
+    private static final String ADDRESS = "address";
     private Owner george;
 
     @Before
@@ -94,7 +95,7 @@ public class OwnerControllerTests {
         mockMvc.perform(post(OWNERS_NEW_URL)
             .param(FIRST_NAME, "Joe")
             .param(LAST_NAME, LAST_NAME_BLOGGS)
-            .param("address", "123 Caramel Street")
+            .param(ADDRESS, "123 Caramel Street")
             .param("city", "London")
             .param("telephone", "01316761638")
         )
@@ -110,7 +111,7 @@ public class OwnerControllerTests {
         )
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors(OWNER_ATTRIBUTE))
-            .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, "address"))
+            .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, ADDRESS))
             .andExpect(model().attributeHasFieldErrors(OWNER_ATTRIBUTE, "telephone"))
             .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
@@ -159,7 +160,7 @@ public class OwnerControllerTests {
             .andExpect(model().attributeExists(OWNER_ATTRIBUTE))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("lastName", is(FRANKLIN))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(FIRST_NAME, is(GEORGE))))
-            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("address", is(LIBERTY_STREET_ADDRESS))))
+            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(ADDRESS, is(LIBERTY_STREET_ADDRESS))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is(MADISON))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is(GEORGE_PHONE_NUMBER))))
             .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
@@ -187,7 +188,7 @@ public class OwnerControllerTests {
         )
             .andExpect(status().isOk())
             .andExpect(model().attributeHasErrors("owner"))
-            .andExpect(model().attributeHasFieldErrors("owner", "address"))
+            .andExpect(model().attributeHasFieldErrors("owner", ADDRESS))
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(view().name(CREATE_OR_UPDATE_OWNER_FORM));
     }
@@ -198,7 +199,7 @@ public class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("lastName", is("Franklin"))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(FIRST_NAME, is("George"))))
-            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("address", is("110 W. Liberty St."))))
+            .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty(ADDRESS, is("110 W. Liberty St."))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("city", is("Madison"))))
             .andExpect(model().attribute(OWNER_ATTRIBUTE, hasProperty("telephone", is("6085551023"))))
             .andExpect(view().name("owners/ownerDetails"));
