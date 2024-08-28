@@ -31,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+private static final String EXCEPTION_VIEW_NAME = "exception";
+
 /**
  * Test class for {@link CrashController}
  *
@@ -47,8 +49,8 @@ public class CrashControllerTests {
 
     @Test
     public void testTriggerException() throws Exception {
-        mockMvc.perform(get("/oups")).andExpect(view().name("exception"))
-                .andExpect(model().attributeExists("exception"))
-                .andExpect(forwardedUrl("exception")).andExpect(status().isOk());
+        mockMvc.perform(get("/oups")).andExpect(view().name(EXCEPTION_VIEW_NAME))
+                .andExpect(model().attributeExists(EXCEPTION_VIEW_NAME))
+                .andExpect(forwardedUrl(EXCEPTION_VIEW_NAME)).andExpect(status().isOk());
     }
 }
