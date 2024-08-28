@@ -55,13 +55,14 @@ public class OwnerControllerTests {
     @MockBean
     private OwnerRepository owners;
 
+    private static final String GEORGE = "George";
     private Owner george;
 
     @Before
     public void setup() {
         george = new Owner();
         george.setId(TEST_OWNER_ID);
-        george.setFirstName("George");
+        george.setFirstName(GEORGE);
         george.setLastName("Franklin");
         george.setAddress("110 W. Liberty St.");
         george.setCity("Madison");
@@ -146,7 +147,7 @@ public class OwnerControllerTests {
             .andExpect(status().isOk())
             .andExpect(model().attributeExists("owner"))
             .andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
-            .andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
+            .andExpect(model().attribute("owner", hasProperty("firstName", is(GEORGE))))
             .andExpect(model().attribute("owner", hasProperty("address", is("110 W. Liberty St."))))
             .andExpect(model().attribute("owner", hasProperty("city", is("Madison"))))
             .andExpect(model().attribute("owner", hasProperty("telephone", is("6085551023"))))
